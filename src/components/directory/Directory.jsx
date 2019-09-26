@@ -10,32 +10,32 @@ class Directory extends React.Component {
       sections: [
         {
           title: "smartphones",
-          imageURL: "img/smart-phone.jpg",
+          imageURL: "assets/img/smart-phone.jpg",
           linkURL: "smartphones",
           id: 1
         },
         {
           title: "tablets",
-          imageURL: "img/tablet.jpg",
+          imageURL: "assets/img/tablet.jpg",
           linkURL: "tablets",
           id: 2
         },
         {
           title: "laptops",
-          imageURL: "img/laptop.jpg",
+          imageURL: "assets/img/laptop.jpg",
           linkURL: "laptops",
           id: 3
         },
         {
           title: "desktops",
-          imageURL: "img/desktop.jpg",
+          imageURL: "assets/img/desktop.jpg",
           size: "large",
           linkURL: "desktops",
           id: 4
         },
         {
           title: "accessories",
-          imageURL: "img/accessories.jpg",
+          imageURL: "assets/img/accessories.jpg",
           size: "large",
           linkURL: "accessories",
           id: 5
