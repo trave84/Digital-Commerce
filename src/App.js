@@ -3,8 +3,24 @@ import { Switch, Route } from "react-router-dom";
 import Header from "./components/header/Header";
 import HomePage from "./pages/homepage/HomePage";
 import ShopPage from "./pages/shop/ShopPage";
+import RegisterPage from "./pages/registerpage/RegisterPage";
 
 import "./App.scss";
+
+function App() {
+  return (
+    <div>
+      <Header />
+      <Switch>
+        <Route exact path="/" component={HomePage} />
+        <Route path="/shop" component={ShopPage} />
+        <Route path="/register" component={RegisterPage} />
+      </Switch>
+    </div>
+  );
+}
+
+export default App;
 
 // const SmartPhones = () => (
 //   <div>
@@ -31,17 +47,3 @@ import "./App.scss";
 //     <h1>Accessories</h1>
 //   </div>
 // );
-
-function App() {
-  return (
-    <div>
-      <Header />
-      <Switch>
-        <Route exact path="/" component={HomePage} />
-        <Route path="/shop" component={ShopPage} />
-      </Switch>
-    </div>
-  );
-}
-
-export default App;
