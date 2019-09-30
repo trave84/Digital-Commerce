@@ -2,10 +2,12 @@ import React from "react";
 
 import "./RegisterPage.scss";
 import SignIn from "../../components/sigIn/SignIn";
+import SignUp from "../../components/signUp/SignUp";
 
 const RegisterPage = () => (
-  <div>
+  <div className="sign-in-sign-up">
     <SignIn />
+    <SignUp />
   </div>
 );
 
