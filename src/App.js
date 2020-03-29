@@ -1,59 +1,58 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
-import Header from "./components/header/Header";
+import { connect } from 'react-redux'
 import HomePage from "./pages/homepage/HomePage";
 import ShopPage from "./pages/shop/ShopPage";
 import RegisterPage from "./pages/registerpage/RegisterPage";
+import Header from "./components/header/Header";
 import { auth, createUserProfileDocument } from "./firebase/firebase.utils";
+import { setCurrentUser } from './redux/user/user.actions.jsx'
 
 import "./App.scss";
 
-class App extends React.Component {
-  constructor() {
-    super();
-
-    this.state = {
-      currentUser: null
-    };
-  }
-
+//Top level App Component - Single Source of Truth
+class App extends React.Component {  
   unsubscribeFromAuth = null;
-
+  
   componentDidMount() {
+    const { setCurrentUser } = this.props;
+
     this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
-      // this.setState({ currentUser: user });
+      //this.setState({ currentUser: user });
       if (userAuth) {
         const userRef = await createUserProfileDocument(userAuth);
 
         userRef.onSnapshot(snapshot => {
-          console.log(snapshot);
+          //console.log(snapshot);
 
-          this.setState(
+          setCurrentUser(
             {
               currentUser: {
                 id: snapshot.id,
                 ...snapshot.data()
               }
-            },
+            }
+            ,
             () => {
               console.log(this.state);
-            }
-          );
-          console.log(this.state);
+             }
+        );
+          //console.log(this.state);
         });
       }
-      this.setState({ currentUser: userAuth });
+      setCurrentUser(userAuth);
     });
   }
 
   componentWillUnmount() {
     this.unsubscribeFromAuth();
   }
-
+ 
   render() {
     return (
+      //SST details passed onto Header Component
       <div>
-        <Header currentUser={this.state.currentUser} />
+        <Header/>
         <Switch>
           <Route exact path="/" component={HomePage} />
           <Route path="/shop" component={ShopPage} />
@@ -63,31 +62,9 @@ class App extends React.Component {
     );
   }
 }
+const mapDispatchToProps = dispatch => ({
+  // Call Dispatch, whatever Obj you are passing gonna be a ActioObject i pas everywhere
+  setCurrentUser: user => dispatch(setCurrentUser(user))
+})
 
-export default App;
-
-// const SmartPhones = () => (
-//   <div>
-//     <h1>Smartphones</h1>
-//   </div>
-// );
-// const Tablets = () => (
-//   <div>
-//     <h1>Tablets</h1>
-//   </div>
-// );
-// const Laptops = () => (
-//   <div>
-//     <h1>Laptops</h1>
-//   </div>
-// );
-// const Desktops = () => (
-//   <div>
-//     <h1>Desktops</h1>
-//   </div>
-// );
-// const Accessories = () => (
-//   <div>
-//     <h1>Accessories</h1>
-//   </div>
-// );
+export default connect(null, mapDispatchToProps )(App);

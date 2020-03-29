@@ -7,7 +7,7 @@ const config = {
   authDomain: "digital-commerce-db.firebaseapp.com",
   databaseURL: "https://digital-commerce-db.firebaseio.com",
   projectId: "digital-commerce-db",
-  storageBucket: "",
+  storageBucket: "digital-commerce-db.appspot.com",
   messagingSenderId: "200145763117",
   appId: "1:200145763117:web:9623ea66494d459dd331a4",
   measurementId: "G-FTRKRQ33BK"
@@ -18,7 +18,7 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
 
   const userRef = firestore.doc(`users/${userAuth.uid}`);
   const snapShot = await userRef.get();
-  console.log(snapShot);
+  //console.log(snapShot);
 
   if (!snapShot.exists) {
     const { displayName, email } = userAuth;
